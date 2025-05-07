@@ -1,0 +1,23 @@
+Description: Fix TLS hostname verification.
+Author: Unit 193 <unit193@debian.org>
+Forwarded: no
+Bug: #1041517
+
+---
+ sendEmail |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+--- a/sendEmail
++++ b/sendEmail
+@@ -1930,7 +1930,10 @@ if( $conf{'use_sendmail'} ) {
+         if ($conf{'tls_server'} == 1 and $conf{'tls_client'} == 1 and $opt{'tls'} =~ /^(yes|auto)$/) {
+             printmsg("DEBUG => Starting TLS", 2);
+             if (SMTPchat('STARTTLS')) { quit($conf{'error'}, 1); }
+-            if (! IO::Socket::SSL->start_SSL($SERVER, SSL_version => 'SSLv23:!SSLv2')) {
++            if (! IO::Socket::SSL->start_SSL($SERVER,
++		SSL_version => 'TLSv12:!SSLv2',
++		SSL_verifycn_scheme => 'smtp',
++		SSL_verifycn_name => $conf{'server'})) {
+                 quit("ERROR => TLS setup failed: " . IO::Socket::SSL::errstr(), 1);
+             }
+             printmsg("DEBUG => TLS: Using cipher: ". $SERVER->get_cipher(), 3);
