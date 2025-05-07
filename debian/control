@@ -1,15 +1,22 @@
-Source: template-repository
-Section: unknown
+Source: sendemail
+Section: mail
 Priority: optional
-Maintainer: Tsic404 <liuheng@deepin.org>
-Build-Depends: debhelper (>= 11)
-Standards-Version: 4.1.3
-Homepage: https://github.com/deepin-community/template-repository
-#Vcs-Browser: https://salsa.debian.org/debian/deepin-community-template-repository
-#Vcs-Git: https://salsa.debian.org/debian/deepin-community-template-repository.git
+Maintainer: Alejandro Garrido Mota <alejandro@debian.org>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.4
+Homepage: http://caspian.dotconf.net/menu/Software/SendEmail/
+Vcs-Git: git://github.com/mogaal/sendemail.git
+Vcs-Browser: https://github.com/mogaal/sendemail
 
-Package: template-repository
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Package: sendemail
+Architecture: all
+Depends: ${misc:Depends}, ${perl:Depends}, libio-socket-inet6-perl
+Suggests: libio-socket-ssl-perl, libnet-ssleay-perl
+Description: lightweight, command line SMTP email client
+ SendEmail is a lightweight, completely command line based, SMTP email
+ agent. It was designed to be used in bash scripts, Perl programs, and
+ web sites, but it is also quite useful in many other contexts. 
+ .
+ SendEmail is written in Perl and is unique in that it
+ requires no special modules. It has a straight forward interface,
+ making it very easy to use.
